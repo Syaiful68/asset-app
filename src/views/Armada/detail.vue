@@ -1,3 +1,3 @@
 <template>
-  <div>app vue</div>
+  <div></div>
 </template>
