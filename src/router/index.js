@@ -67,6 +67,23 @@ const router = createRouter({
         },
       ]
     },
+    {
+      path: '/report',
+      name: 'report',
+      children:[
+        {
+          path:'repair',
+          name:'report.repair',
+          component: () => import('../views/Report/repair.vue'),
+        },
+        {
+          path:'asset',
+          name:'report.asset',
+          component: () => import('../views/Report/asset.vue'),
+        },
+      ]
+    },
+
   ],
 })
 
