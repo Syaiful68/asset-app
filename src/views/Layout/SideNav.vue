@@ -1,13 +1,13 @@
 <script setup>
 import ListMenu from "./Menu/menuList.vue";
 const Menus = [
-  { label: "Asset", path: "/asset", icon: "" },
-  { label: "Building", path: "/building", icon: "" },
-  { label: "Vendor", path: "/vendor", icon: "" },
+  { label: "Asset", path: "/asset", icon: "fa-computer" },
+  { label: "Building", path: "/building", icon: "fa-building" },
+  { label: "Vendor", path: "/vendor", icon: "fa-handshake-angle" },
   {
     label: "Report",
-    path: "/vendor",
-    icon: "",
+    path: "/report",
+    icon: "fa-clipboard-list",
     children: [
       { label: "Report Repair", path: "/report/repair" },
       { label: "Report Asset", path: "/report/Asset" },
