@@ -6,7 +6,6 @@ import Sidebar from "./views/Layout/SideNav.vue";
   <div class="app">
     <Sidebar></Sidebar>
     <div class="page-wrapper">
-      <Appbar></Appbar>
       <router-view></router-view>
     </div>
   </div>

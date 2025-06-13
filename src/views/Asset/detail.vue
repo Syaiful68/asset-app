@@ -1,4 +1,15 @@
 <script setup>
+import AppBar from "../Layout/Appbar.vue";
+const headers = [
+  {
+    label: "Asset",
+    title: "Asset",
+    path: [
+      { id: 1, link: "/asset", name: "Asset" },
+      { id: 2, link: "", name: "Detail" },
+    ],
+  },
+];
 const condition = [
   { label: "Good", name: "good" },
   { label: "Repair", name: "repair" },
@@ -17,6 +28,7 @@ const SubmitAsset = () => {
 </script>
 
 <template>
+  <AppBar :header="headers" />
   <!--  -->
   <div class="page-body">
     <div class="container-xl">
