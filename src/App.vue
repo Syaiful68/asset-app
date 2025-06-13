@@ -1,5 +1,4 @@
 <script setup>
-import Appbar from "./views/Layout/Appbar.vue";
 import Sidebar from "./views/Layout/SideNav.vue";
 </script>
 

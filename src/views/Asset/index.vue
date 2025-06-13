@@ -1,6 +1,9 @@
 <script setup>
 import TableView from "./partials/tableView.vue";
 import CardList from "./partials/cardList.vue";
+import AppBar from "../Layout/Appbar.vue";
+
+const headers = [{ label: "Asset", title: "Asset", path: "" }];
 
 const Lists = [
   {
@@ -68,6 +71,7 @@ const datas = [
 </script>
 
 <template>
+  <AppBar :header="headers" />
   <!--  -->
   <div class="page-body">
     <div class="container-xl">

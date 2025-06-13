@@ -1,3 +1,10 @@
+<script setup>
+//
+defineProps({
+  header: Object,
+});
+</script>
+
 <template>
   <!-- BEGIN PAGE HEADER -->
   <div class="page-header d-print-none" aria-label="Page header">
@@ -6,7 +13,7 @@
         <div class="col">
           <!-- Page pre-title -->
           <div class="page-pretitle">Overview</div>
-          <h2 class="page-title">Fluid vertical layout</h2>
+          <h2 class="page-title">Asset</h2>
         </div>
         <!-- Page title actions -->
         <div class="col-auto ms-auto d-print-none">

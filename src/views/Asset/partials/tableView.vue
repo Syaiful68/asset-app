@@ -45,6 +45,9 @@ defineProps({
                   <kbd>ctrl + K</kbd>
                 </span>
               </div>
+              <router-link class="btn btn-primary btn-0" to="/asset/create"
+                >Add</router-link
+              >
             </div>
           </div>
         </div>

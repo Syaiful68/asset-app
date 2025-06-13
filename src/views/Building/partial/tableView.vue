@@ -44,6 +44,7 @@ defineProps({
                 <span class="input-group-text">
                   <kbd>ctrl + K</kbd>
                 </span>
+                <a href="#" class="btn btn-0"> Button </a>
               </div>
             </div>
           </div>

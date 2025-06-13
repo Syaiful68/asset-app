@@ -13,6 +13,11 @@ const router = createRouter({
           component: () => import('../views/Asset/index.vue'),
         },
         {
+          path:'create',
+          name:'asset.create',
+          component: () => import('../views/Asset/create.vue'),
+        },
+        {
           path:':id/detail',
           name:'asset.detail',
           component: () => import('../views/Asset/detail.vue'),
