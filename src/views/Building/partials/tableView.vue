@@ -11,8 +11,8 @@ defineProps({
       <div class="card-header">
         <div class="row w-full">
           <div class="col">
-            <h3 class="card-title mb-0">Armada</h3>
-            <p class="text-secondary m-0">Armada List</p>
+            <h3 class="card-title mb-0">Building</h3>
+            <p class="text-secondary m-0">Building List</p>
           </div>
           <div class="col-md-auto col-sm-12">
             <div class="ms-auto d-flex flex-wrap btn-list">
@@ -70,7 +70,7 @@ defineProps({
                 <td>{{ item.location }}</td>
                 <td>{{ item.status }}</td>
                 <td>
-                  <router-link :to="'/asset/' + item.tags + '/detail'"
+                  <router-link :to="'/building/' + item.tags + '/detail'"
                     >Edit</router-link
                   >
                 </td>

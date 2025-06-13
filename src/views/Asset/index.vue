@@ -3,7 +3,13 @@ import TableView from "./partials/tableView.vue";
 import CardList from "./partials/cardList.vue";
 import AppBar from "../Layout/Appbar.vue";
 
-const headers = [{ label: "Asset", title: "Asset", path: "" }];
+const headers = [
+  {
+    label: "Asset",
+    title: "Asset",
+    path: [{ label: "Asset", link: "", name: "Asset" }],
+  },
+];
 
 const Lists = [
   {

@@ -3,7 +3,7 @@ import ListMenu from "./Menu/menuList.vue";
 const Menus = [
   { label: "Asset", path: "/asset", icon: "fa-computer" },
   { label: "Building", path: "/building", icon: "fa-building" },
-  { label: "Armada", path: "/armada", icon: "fa-handshake-angle" },
+  { label: "Armada", path: "/armada", icon: "fa-truck-fast" },
   { label: "Vendor", path: "/vendor", icon: "fa-handshake-angle" },
   {
     label: "Report",

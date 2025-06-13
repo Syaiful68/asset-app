@@ -44,8 +44,10 @@ defineProps({
                 <span class="input-group-text">
                   <kbd>ctrl + K</kbd>
                 </span>
-                <a href="#" class="btn btn-0"> Button </a>
               </div>
+              <router-link to="/armada/create" class="btn btn-primary"
+                >Add</router-link
+              >
             </div>
           </div>
         </div>
@@ -56,7 +58,7 @@ defineProps({
             <thead>
               <tr>
                 <th v-for="(list, index) in header" :key="index">
-                  {{ list.label }}
+                  {{ list.name }}
                 </th>
               </tr>
             </thead>
