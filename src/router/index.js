@@ -98,6 +98,22 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/repair",
+      name: "repair",
+      children: [
+        {
+          path: "",
+          name: "repair.index",
+          component: () => import("../views/Repair/index.vue"),
+        },
+        {
+          path: ":id/show",
+          name: "repair.detail",
+          component: () => import("../views/Repair/detail.vue"),
+        },
+      ],
+    },
   ],
 });
 

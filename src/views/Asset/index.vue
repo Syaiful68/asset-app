@@ -2,6 +2,8 @@
 import TableView from "./partials/tableView.vue";
 import CardList from "./partials/cardList.vue";
 import AppBar from "../Layout/Appbar.vue";
+import { ref, onMounted } from "vue";
+import Api from "@/utils/Api";
 
 const headers = [
   {
@@ -45,35 +47,29 @@ const Lists = [
 const tableHeader = [
   { name: "Tags", label: "tags" },
   { name: "Item", label: "item" },
-  { name: "Condition", label: "condition" },
   { name: "Location", label: "location" },
-  { name: "Status", label: "status" },
+  { name: "Condition", label: "condition" },
   { name: "", label: "" },
 ];
 
-const datas = [
-  {
-    tags: "DTB00092891",
-    items: "Komputer Core i3",
-    condition: "Good",
-    location: "Tarutung",
-    status: "Used",
-  },
-  {
-    tags: "DTB00092892",
-    items: "Mesin Jahit",
-    condition: "Good",
-    location: "Silangit",
-    status: "Used",
-  },
-  {
-    tags: "DTB00092893",
-    items: "Komputer Core i3",
-    condition: "Good",
-    location: "Balige",
-    status: "Used",
-  },
-];
+const datas = ref([]);
+
+// method
+const getAsset = async () => {
+  await Api.get("/asset", {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.asset;
+  });
+};
+
+//access
+onMounted(() => {
+  getAsset();
+});
 </script>
 
 <template>

@@ -11,8 +11,8 @@ defineProps({
       <div class="card-header">
         <div class="row w-full">
           <div class="col">
-            <h3 class="card-title mb-0">Asset</h3>
-            <p class="text-secondary m-0">Asset List</p>
+            <h3 class="card-title mb-0">Repair</h3>
+            <p class="text-secondary m-0">Repair List</p>
           </div>
           <div class="col-md-auto col-sm-12">
             <div class="ms-auto d-flex flex-wrap btn-list">
@@ -45,7 +45,7 @@ defineProps({
                   <kbd>ctrl + K</kbd>
                 </span>
               </div>
-              <router-link class="btn btn-primary btn-0" to="/asset/create"
+              <router-link to="/armada/create" class="btn btn-primary"
                 >Add</router-link
               >
             </div>
@@ -66,8 +66,9 @@ defineProps({
               <tr v-for="(item, index) in data">
                 <td>{{ item.tags }}</td>
                 <td>{{ item.items }}</td>
-                <td>{{ item.location }}</td>
                 <td>{{ item.condition }}</td>
+                <td>{{ item.location }}</td>
+                <td>{{ item.status }}</td>
                 <td>
                   <router-link :to="'/asset/' + item.tags + '/detail'"
                     >Edit</router-link
@@ -76,6 +77,19 @@ defineProps({
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="card-footer d-flex align-items-center">
+          <ul class="pagination m-0 ms-auto">
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
