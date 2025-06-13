@@ -78,6 +78,19 @@ defineProps({
             </tbody>
           </table>
         </div>
+        <div class="card-footer d-flex align-items-center">
+          <ul class="pagination m-0 ms-auto">
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

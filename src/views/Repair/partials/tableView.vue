@@ -45,9 +45,13 @@ defineProps({
                   <kbd>ctrl + K</kbd>
                 </span>
               </div>
-              <router-link to="/armada/create" class="btn btn-primary"
-                >Add</router-link
+              <button
+                type="button"
+                @click="$emit('open')"
+                class="btn btn-primary"
               >
+                Add
+              </button>
             </div>
           </div>
         </div>
