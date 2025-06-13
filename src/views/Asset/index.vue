@@ -1,5 +1,5 @@
 <script setup>
-import TableView from "@/components/tableView.vue";
+import TableView from "./partials/tableView.vue";
 import CardList from "./partials/cardList.vue";
 
 const Lists = [
@@ -90,66 +90,7 @@ const datas = [
           </div>
         </div>
         <div class="col-12">
-          <div class="card">
-            <TableView>
-              <template #header>
-                <div class="card-header">
-                  <h3 class="card-title">Invoices</h3>
-                </div>
-                <div class="card-body border-bottom py-3">
-                  <div class="d-flex">
-                    <div class="text-secondary">
-                      Show
-                      <div class="mx-2 d-inline-block">
-                        <input
-                          type="text"
-                          class="form-control form-control-sm"
-                          value="8"
-                          size="3"
-                          aria-label="Invoices count"
-                        />
-                      </div>
-                      entries
-                    </div>
-                    <div class="ms-auto text-secondary">
-                      Search:
-                      <div class="ms-2 d-inline-block">
-                        <input
-                          type="text"
-                          class="form-control form-control-sm"
-                          aria-label="Search invoice"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </template>
-              <!-- content -->
-              <template #default>
-                <table
-                  class="table table-selectable card-table table-vcenter text-nowrap datatable"
-                >
-                  <thead>
-                    <tr>
-                      <th v-for="(list, index) in tableHeader" :key="index">
-                        {{ list.label }}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(item, index) in datas" :key="index">
-                      <td>{{ item.tags }}</td>
-                      <td>{{ item.items }}</td>
-                      <td>{{ item.condition }}</td>
-                      <td>{{ item.location }}</td>
-                      <td>{{ item.status }}</td>
-                      <td>edit</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </template>
-            </TableView>
-          </div>
+          <TableView :header="tableHeader" :data="datas" />
         </div>
       </div>
     </div>
