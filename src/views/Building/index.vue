@@ -1,6 +1,9 @@
 <script setup>
 import TableView from "./partials/tableView.vue";
 import AppBar from "../Layout/Appbar.vue";
+import { ref } from "vue";
+import Api from "@/utils/Api";
+import { onMounted } from "vue";
 
 const headers = [
   {
@@ -19,29 +22,23 @@ const tableHeader = [
   { name: "", label: "" },
 ];
 
-const datas = [
-  {
-    tags: "DTB00092891",
-    items: "Komputer Core i3",
-    condition: "Good",
-    location: "Tarutung",
-    status: "Used",
-  },
-  {
-    tags: "DTB00092892",
-    items: "Mesin Jahit",
-    condition: "Good",
-    location: "Silangit",
-    status: "Used",
-  },
-  {
-    tags: "DTB00092893",
-    items: "Komputer Core i3",
-    condition: "Good",
-    location: "Balige",
-    status: "Used",
-  },
-];
+const datas = ref([]);
+
+// method
+const getBuilding = async () => {
+  await Api.get("/building", {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.building;
+  });
+};
+
+onMounted(() => {
+  getBuilding();
+});
 </script>
 
 <template>

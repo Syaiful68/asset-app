@@ -1,15 +1,37 @@
 <script setup>
+import Api from "@/utils/Api";
+import { ref } from "vue";
 import { reactive } from "vue";
 
 defineProps({
   data: Object,
-  errs: Object,
 });
+
+const emit = defineEmits(["close"]);
+
+const errs = ref([]);
 
 const formData = reactive({
   asset: "",
   description: null,
 });
+
+const submitRepair = async () => {
+  await Api.post("/repair", formData, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((res) => {
+      console.log(res);
+      (formData.asset = ""), (formData.description = ""), emit("close");
+    })
+    .catch((error) => {
+      if (error.status === 422) {
+        errs.value = error.response.data.errors;
+      }
+    });
+};
 </script>
 
 <template>
@@ -24,43 +46,43 @@ const formData = reactive({
             @click="$emit('close')"
           ></button>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Asset</label>
-            <select
-              class="form-control"
-              v-model="formData.asset"
-              :class="{ 'is-invalid': errs.asset }"
+        <form @submit.prevent="submitRepair">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Asset</label>
+              <select
+                class="form-control"
+                v-model="formData.asset"
+                :class="{ 'is-invalid': errs.asset }"
+              >
+                <option value="">Choise</option>
+                <option v-for="(item, index) in data" :value="item.asset_code">
+                  {{ item.asset_code }}-{{ item.asset_name }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Description</label>
+              <input
+                type="text"
+                v-model="formData.description"
+                class="form-control"
+                :class="{ 'is-invalid': errs.description }"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              @click="$emit('close')"
+              class="btn me-auto"
+              data-bs-dismiss="modal"
             >
-              <option value="">Choise</option>
-              <option v-for="(item, index) in data" :value="item.asset_code">
-                {{ item.asset_Code }}-{{ item.asset_name }}
-              </option>
-            </select>
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save</button>
           </div>
-          <div class="mb-3">
-            <label for="" class="form-label">Description</label>
-            <input
-              type="text"
-              v-model="formData.description"
-              class="form-control"
-              :class="{ 'is-invalid': errs.description }"
-            />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            @click="$emit('close')"
-            class="btn me-auto"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-            Save changes
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>

@@ -1,4 +1,6 @@
 <script setup>
+import formatDate from "dayjs";
+
 defineProps({
   header: Object,
   data: Object,
@@ -67,14 +69,21 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-for="(item, index) in data">
-                <td>{{ item.tags }}</td>
-                <td>{{ item.items }}</td>
-                <td>{{ item.condition }}</td>
+              <tr v-if="data.total === 0">
+                <td class="text-center" colspan="6">Data not found</td>
+              </tr>
+              <tr v-else v-for="(item, index) in data.data">
+                <td>{{ item.repair_code }}</td>
+                <td>{{ item.asset.asset_name }}</td>
                 <td>{{ item.location }}</td>
+                <td>
+                  {{
+                    formatDate(item.created_at.format).format("MMM DD, YYYY")
+                  }}
+                </td>
                 <td>{{ item.status }}</td>
                 <td>
-                  <router-link :to="'/asset/' + item.tags + '/detail'"
+                  <router-link :to="'/repair/' + item.repair_code + '/detail'"
                     >Edit</router-link
                   >
                 </td>

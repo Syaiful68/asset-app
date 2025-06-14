@@ -23,7 +23,6 @@ const tableHeader = [
   { name: "", label: "" },
 ];
 // declare
-const errs = ref([]);
 const datas = ref([]);
 const assetData = ref([]);
 const invisbleModal = ref(false);
@@ -41,7 +40,7 @@ const getRepair = async () => {
   })
     .then((res) => {
       console.log(res);
-      datas.value = res.data.repair;
+      datas.value = res.data.data;
       assetData.value = res.data.asset;
     })
     .catch((errors) => {
@@ -66,11 +65,7 @@ onMounted(() => {
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <TableView
-            :header="tableHeader"
-            :data="assetData"
-            @open="toggleModal"
-          />
+          <TableView :header="tableHeader" :data="datas" @open="toggleModal" />
         </div>
       </div>
     </div>
@@ -79,6 +74,5 @@ onMounted(() => {
     v-show="invisbleModal"
     @close="toggleModal"
     :data="assetData"
-    :errs="errs"
   ></ModalView>
 </template>

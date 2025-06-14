@@ -63,7 +63,7 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-for="(item, index) in data">
+              <tr v-for="(item, index) in data.data">
                 <td>{{ item.tags }}</td>
                 <td>{{ item.items }}</td>
                 <td>{{ item.condition }}</td>
@@ -80,14 +80,17 @@ defineProps({
         </div>
         <div class="card-footer d-flex align-items-center">
           <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
+            <li
+              class="page-item"
+              v-for="(item, index) in data.links"
+              :key="index"
+            >
+              <a
+                class="page-link"
+                :class="{ active: item.active }"
+                href="#"
+                v-html="item.label"
+              ></a>
             </li>
           </ul>
         </div>

@@ -1,4 +1,5 @@
 <script setup>
+import { useRoute, useRouter } from "vue-router";
 import AppBar from "../Layout/Appbar.vue";
 import Api from "@/utils/Api";
 import { onMounted, reactive, ref } from "vue";
@@ -7,13 +8,15 @@ import { onMounted, reactive, ref } from "vue";
 const Location = ref([]);
 const errs = ref([]);
 
+const router = useRouter();
+
 const formData = reactive({
   sn: null,
   item: null,
   condition: "",
   type: "",
   pic: null,
-  brand: null,
+  brend: null,
   model: null,
   location: "",
   description: null,
@@ -42,16 +45,9 @@ const TypeAsset = [
 ];
 // method
 const getLocation = async () => {
-  await Api.get("/origin")
-    .then((res) => {
-      console.log(res);
-      Location.value = res.data.origin;
-    })
-    .catch((errors) => {
-      if (errors.status === 422) {
-        errs.value = errors.response.errors;
-      }
-    });
+  await Api.get("/origin").then((res) => {
+    Location.value = res.data.origin;
+  });
 };
 
 const SubmitAsset = async () => {
@@ -59,7 +55,15 @@ const SubmitAsset = async () => {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
-  });
+  })
+    .then((res) => {
+      console.log(res);
+      router.push({ path: "/asset" });
+    })
+    .catch((error) => {
+      console.log(error);
+      errs.value = error.response.data.errors;
+    });
 };
 
 // access
@@ -102,8 +106,8 @@ onMounted(() => {
                   <input
                     type="text"
                     class="form-control"
-                    :class="{ 'is-invalid': errs.brand }"
-                    v-model="formData.brand"
+                    :class="{ 'is-invalid': errs.brend }"
+                    v-model="formData.brend"
                   />
                 </div>
                 <div class="mb-3">
@@ -137,22 +141,6 @@ onMounted(() => {
           <div class="col-6">
             <div class="card">
               <div class="card-body">
-                <div class="mb-3">
-                  <label class="form-label">Condition</label>
-                  <select
-                    class="form-control"
-                    :class="{ 'is-invalid': errs.condition }"
-                    v-model="formData.condition"
-                  >
-                    <option value="">Choise</option>
-                    <option
-                      v-for="(list, index) in condition"
-                      :value="list.name"
-                    >
-                      {{ list.label }}
-                    </option>
-                  </select>
-                </div>
                 <div class="mb-3">
                   <label class="form-label">PIC</label>
                   <input

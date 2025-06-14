@@ -63,19 +63,35 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-for="(item, index) in data">
-                <td>{{ item.tags }}</td>
-                <td>{{ item.items }}</td>
+              <tr v-if="data.total === 0">
+                <td class="text-center" colspan="5">Data not found</td>
+              </tr>
+              <tr v-else v-for="(item, index) in data.data">
+                <td>{{ item.asset_code }}</td>
+                <td>{{ item.asset_name }}</td>
                 <td>{{ item.location }}</td>
                 <td>{{ item.condition }}</td>
                 <td>
-                  <router-link :to="'/asset/' + item.tags + '/detail'"
+                  <router-link :to="'/asset/' + item.asset_code + '/detail'"
                     >Edit</router-link
                   >
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="card-footer d-flex align-items-center">
+          <ul class="pagination m-0 ms-auto">
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
