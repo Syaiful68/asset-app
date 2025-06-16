@@ -12,12 +12,15 @@ const emit = defineEmits(["close"]);
 const errs = ref([]);
 
 const formData = reactive({
-  asset: "",
-  description: null,
+  compeny: "",
+  nik: null,
+  owner: null,
+  contact: null,
+  address: null,
 });
 
 const submitRepair = async () => {
-  await Api.post("/repair", formData, {
+  await Api.post("/compeny", formData, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
@@ -52,8 +55,17 @@ const submitRepair = async () => {
               <label class="form-label">Compeny Name</label>
               <input
                 type="text"
-                v-model="formData.name"
-                :class="{ 'is-invalid': errs.name }"
+                v-model="formData.compeny"
+                :class="{ 'is-invalid': errs.compeny }"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Nik</label>
+              <input
+                type="text"
+                v-model="formData.nik"
+                :class="{ 'is-invalid': errs.nik }"
                 class="form-control"
               />
             </div>
@@ -73,6 +85,15 @@ const submitRepair = async () => {
                 v-model="formData.contact"
                 class="form-control"
                 :class="{ 'is-invalid': errs.contact }"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Address</label>
+              <input
+                type="text"
+                v-model="formData.address"
+                class="form-control"
+                :class="{ 'is-invalid': errs.address }"
               />
             </div>
           </div>

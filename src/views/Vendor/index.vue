@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import AppBar from "../Layout/Appbar.vue";
 import TableView from "./partials/tableView.vue";
+import ModalView from "./partials/modalView.vue";
 import Api from "@/utils/Api";
 
 const headers = [
@@ -20,7 +21,14 @@ const tableHeader = [
   { name: "", label: "" },
 ];
 
+// declare
 const datas = ref([]);
+const invisbleModal = ref(false);
+
+// method
+function toggleModal() {
+  return (invisbleModal.value = !invisbleModal.value);
+}
 
 const getCompeny = async () => {
   await Api.get("/compeny", {
@@ -29,9 +37,11 @@ const getCompeny = async () => {
     },
   }).then((res) => {
     console.log(res);
+    datas.value = res.data.compeny;
   });
 };
 
+// access
 onMounted(() => {
   getCompeny();
 });
@@ -44,9 +54,10 @@ onMounted(() => {
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" />
+          <TableView :header="tableHeader" :data="datas" @open="toggleModal" />
         </div>
       </div>
     </div>
   </div>
+  <ModalView v-show="invisbleModal" @close="toggleModal"></ModalView>
 </template>

@@ -45,9 +45,13 @@ defineProps({
                   <kbd>ctrl + K</kbd>
                 </span>
               </div>
-              <router-link class="btn btn-primary btn-0" to="/building/create"
-                >Add</router-link
+              <button
+                type="button"
+                @click="$emit('open')"
+                class="btn btn-primary"
               >
+                Add
+              </button>
             </div>
           </div>
         </div>
@@ -64,12 +68,12 @@ defineProps({
             </thead>
             <tbody class="table-tbody">
               <tr v-for="(item, index) in data.data" :key="index">
-                <td>{{ item.compenies_name }}</td>
+                <td>{{ item.name }}</td>
                 <td>{{ item.owner_name }}</td>
                 <td>{{ item.contact }}</td>
                 <td>{{ item.created_at }}</td>
                 <td>
-                  <router-link :to="'/building/' + item.tags + '/detail'"
+                  <router-link :to="'/vendor/' + item.id + '/detail'"
                     >Edit</router-link
                   >
                 </td>
