@@ -79,14 +79,14 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-for="(item, index) in data.data">
-                <td>{{ item.tags }}</td>
-                <td>{{ item.items }}</td>
-                <td>{{ item.condition }}</td>
-                <td>{{ item.location }}</td>
-                <td>{{ item.status }}</td>
+              <tr v-for="(item, index) in data.data" :key="index">
+                <td>{{ item.office.office_name }}</td>
+                <td>{{ item.owner_name }}</td>
+                <td>{{ item.type }}</td>
+                <td>{{ item.rent }}</td>
+                <td>{{ item.contract_date }}</td>
                 <td>
-                  <router-link :to="'/building/' + item.tags + '/detail'"
+                  <router-link :to="'/building/' + item.id + '/detail'"
                     >Edit</router-link
                   >
                 </td>

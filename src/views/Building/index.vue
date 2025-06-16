@@ -14,11 +14,11 @@ const headers = [
 ];
 
 const tableHeader = [
-  { name: "Tags", label: "tags" },
-  { name: "Item", label: "item" },
-  { name: "Condition", label: "condition" },
-  { name: "Location", label: "location" },
-  { name: "Status", label: "status" },
+  { name: "Office", label: "office" },
+  { name: "Owner Name", label: "owner name" },
+  { name: "Type", label: "type" },
+  { name: "Rent", label: "rent" },
+  { name: "Contract Date", label: "contract date" },
   { name: "", label: "" },
 ];
 
