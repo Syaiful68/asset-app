@@ -45,8 +45,9 @@ const TypeAsset = [
 ];
 // method
 const getLocation = async () => {
-  await Api.get("/origin").then((res) => {
-    Location.value = res.data.origin;
+  await Api.get("/office").then((res) => {
+    console.log(res);
+    Location.value = res.data.office;
   });
 };
 
@@ -161,9 +162,9 @@ onMounted(() => {
                     <option
                       v-for="(item, index) in Location"
                       :key="index"
-                      :value="item.origin_code"
+                      :value="item.id"
                     >
-                      {{ item.origin_name }}
+                      {{ item.office_name }}
                     </option>
                   </select>
                 </div>

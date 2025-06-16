@@ -11,8 +11,8 @@ defineProps({
       <div class="card-header">
         <div class="row w-full">
           <div class="col">
-            <h3 class="card-title mb-0">Building</h3>
-            <p class="text-secondary m-0">Building List</p>
+            <h3 class="card-title mb-0">Compenies</h3>
+            <p class="text-secondary m-0">Compenies List</p>
           </div>
           <div class="col-md-auto col-sm-12">
             <div class="ms-auto d-flex flex-wrap btn-list">
@@ -63,12 +63,11 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-for="(item, index) in data.data">
-                <td>{{ item.tags }}</td>
-                <td>{{ item.items }}</td>
-                <td>{{ item.condition }}</td>
-                <td>{{ item.location }}</td>
-                <td>{{ item.status }}</td>
+              <tr v-for="(item, index) in data.data" :key="index">
+                <td>{{ item.compenies_name }}</td>
+                <td>{{ item.owner_name }}</td>
+                <td>{{ item.contact }}</td>
+                <td>{{ item.created_at }}</td>
                 <td>
                   <router-link :to="'/building/' + item.tags + '/detail'"
                     >Edit</router-link

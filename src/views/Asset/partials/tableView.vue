@@ -66,7 +66,7 @@ defineProps({
               <tr v-if="data.total === 0">
                 <td class="text-center" colspan="5">Data not found</td>
               </tr>
-              <tr v-else v-for="(item, index) in data.data">
+              <tr v-else v-for="(item, index) in data.data" :key="index">
                 <td>{{ item.asset_code }}</td>
                 <td>{{ item.asset_name }}</td>
                 <td>{{ item.location }}</td>
@@ -82,14 +82,17 @@ defineProps({
         </div>
         <div class="card-footer d-flex align-items-center">
           <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
+            <li
+              class="page-item"
+              v-for="(item, index) in data.links"
+              :key="index"
+            >
+              <a
+                class="page-link"
+                :class="{ active: item.active }"
+                :to="item.url"
+                v-html="item.label"
+              ></a>
             </li>
           </ul>
         </div>

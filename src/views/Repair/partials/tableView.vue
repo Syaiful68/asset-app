@@ -93,14 +93,18 @@ defineProps({
         </div>
         <div class="card-footer d-flex align-items-center">
           <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
+            <li
+              v-if="data.total !== 0"
+              class="page-item"
+              v-for="(item, index) in data.links"
+              :key="index"
+            >
+              <a
+                class="page-link"
+                :class="{ active: item.active }"
+                :href="item.url"
+                v-html="item.label"
+              ></a>
             </li>
           </ul>
         </div>
