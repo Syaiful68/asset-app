@@ -84,7 +84,7 @@ watch(
               <tr v-else v-for="(item, index) in data.data" :key="index">
                 <td>{{ item.asset_code }}</td>
                 <td>{{ item.asset_name }}</td>
-                <td>{{ item.location }}</td>
+                <td>{{ item.office.office_name }}</td>
                 <td>{{ item.condition }}</td>
                 <td>
                   <router-link :to="'/asset/' + item.asset_code + '/detail'"

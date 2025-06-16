@@ -33,11 +33,6 @@ const headers = [
   },
 ];
 
-const condition = [
-  { label: "Good", name: "good" },
-  { label: "Repair", name: "repair" },
-  { label: "Destroy", name: "destroy" },
-];
 const TypeAsset = [
   { label: "Electronik", name: "elektronik" },
   { label: "Machine", name: "machine" },
