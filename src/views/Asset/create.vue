@@ -125,6 +125,7 @@ onMounted(() => {
                     <option value="">Choise</option>
                     <option
                       v-for="(list, index) in TypeAsset"
+                      :key="index"
                       :value="list.name"
                     >
                       {{ list.label }}

@@ -109,7 +109,7 @@ onMounted(() => {
                       :value="item.id"
                       :key="index"
                     >
-                      {{ item.name }}
+                      {{ item.compenies_name }}
                     </option>
                   </select>
                 </div>

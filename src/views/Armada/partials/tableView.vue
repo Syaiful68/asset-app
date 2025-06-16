@@ -79,6 +79,9 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
+              <tr v-if="data.total === 0">
+                <td colspan="6" class="text-center">Data not found</td>
+              </tr>
               <tr v-for="(item, index) in data.data" :key="index">
                 <td>{{ item.plat_number }}</td>
                 <td>{{ item.compeny.name }}</td>

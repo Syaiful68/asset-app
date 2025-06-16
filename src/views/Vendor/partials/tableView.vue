@@ -2,7 +2,7 @@
 import formatDate from "dayjs";
 import { watch, ref } from "vue";
 import _ from "lodash";
-const emit = defineEmits(["searchQuery"]);
+const emit = defineEmits(["searchQuery", "open"]);
 
 const searchTerm = ref(null);
 
@@ -59,7 +59,7 @@ defineProps({
               </div>
               <button
                 type="button"
-                @click="$emit('open')"
+                @click="emit('open')"
                 class="btn btn-primary"
               >
                 Add
@@ -83,7 +83,7 @@ defineProps({
                 <td class="text-center" colspan="5">Data not found</td>
               </tr>
               <tr v-for="(item, index) in data.data" :key="index">
-                <td>{{ item.name }}</td>
+                <td>{{ item.compenies_name }}</td>
                 <td>{{ item.owner_name }}</td>
                 <td>{{ item.contact }}</td>
                 <td>

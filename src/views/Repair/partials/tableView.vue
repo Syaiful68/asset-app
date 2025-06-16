@@ -3,7 +3,7 @@ import formatDate from "dayjs";
 import { ref, watch } from "vue";
 import _ from "lodash";
 
-const emit = defineEmits(["pages", "searchQuery"]);
+const emit = defineEmits(["pages", "searchQuery", "open"]);
 
 const searchTerm = ref("");
 defineProps({
@@ -65,7 +65,7 @@ function pages(value) {
               </div>
               <button
                 type="button"
-                @click="$emit('open')"
+                @click="emit('open')"
                 class="btn btn-primary"
               >
                 Add

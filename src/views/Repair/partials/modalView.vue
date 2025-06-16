@@ -2,6 +2,7 @@
 import Api from "@/utils/Api";
 import { ref } from "vue";
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
 defineProps({
   data: Object,
@@ -10,6 +11,7 @@ defineProps({
 const emit = defineEmits(["close"]);
 
 const errs = ref([]);
+const router = useRouter();
 
 const formData = reactive({
   asset: "",
@@ -23,8 +25,7 @@ const submitRepair = async () => {
     },
   })
     .then((res) => {
-      console.log(res);
-      (formData.asset = ""), (formData.description = ""), emit("close");
+      window.location.reload();
     })
     .catch((error) => {
       if (error.status === 422) {
