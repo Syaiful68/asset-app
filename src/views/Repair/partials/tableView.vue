@@ -1,16 +1,27 @@
 <script setup>
 import formatDate from "dayjs";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import _ from "lodash";
 
-const emit = defineEmits(["pages"]);
+const emit = defineEmits(["pages", "searchQuery"]);
 
+const searchTerm = ref("");
 defineProps({
   header: Object,
   data: Object,
 });
 
+watch(
+  searchTerm,
+  _.debounce((value) => {
+    emit("searchQuery", value);
+  }, 1000)
+);
+
 function pages(value) {
-  emit("pages", value.slice(-1));
+  if (value !== null) {
+    emit("pages", value.slice(-1));
+  }
 }
 </script>
 
@@ -49,10 +60,8 @@ function pages(value) {
                   type="text"
                   class="form-control"
                   autocomplete="off"
+                  v-model="searchTerm"
                 />
-                <span class="input-group-text">
-                  <kbd>ctrl + K</kbd>
-                </span>
               </div>
               <button
                 type="button"

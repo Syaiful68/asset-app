@@ -65,6 +65,27 @@ const getAsset = async () => {
     datas.value = res.data.asset;
   });
 };
+const page = async (value) => {
+  await Api.get("/asset?page=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.asset;
+  });
+};
+
+const search = async (value) => {
+  await Api.get("/asset?search=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.asset;
+  });
+};
 
 //access
 onMounted(() => {
@@ -96,7 +117,12 @@ onMounted(() => {
           </div>
         </div>
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" />
+          <TableView
+            :header="tableHeader"
+            :data="datas"
+            @pages="page"
+            @searchQuery="search"
+          />
         </div>
       </div>
     </div>

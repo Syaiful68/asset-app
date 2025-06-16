@@ -51,6 +51,16 @@ const getRepair = async () => {
     });
 };
 
+const search = async (value) => {
+  await Api.get("/repair?search=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.data;
+  });
+};
 const page = async (value) => {
   await Api.get("/repair?page=" + value, {
     headers: {
@@ -81,6 +91,7 @@ onMounted(() => {
             :data="datas"
             @open="toggleModal"
             @pages="page"
+            @searchQuery="search"
           />
         </div>
       </div>

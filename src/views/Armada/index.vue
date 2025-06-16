@@ -2,7 +2,7 @@
 import TableView from "./partials/tableView.vue";
 import AppBar from "../Layout/Appbar.vue";
 import Api from "@/utils/Api";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 const headers = [
   {
@@ -21,7 +21,7 @@ const tableHeader = [
   { name: "", label: "" },
 ];
 
-const datas = [];
+const datas = ref([]);
 
 const getArmada = async () => {
   await Api.get("/armada", {

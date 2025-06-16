@@ -1,4 +1,22 @@
 <script setup>
+import _ from "lodash";
+import { watch, ref } from "vue";
+
+const emit = defineEmits(["searchQuery", "pages"]);
+const searchTerm = ref("");
+
+watch(
+  searchTerm,
+  _.debounce((value) => {
+    emit("searchQuery", value);
+  }, 1000)
+);
+function pages(value) {
+  if (value !== null) {
+    emit("pages", value.slice(-1));
+  }
+}
+
 defineProps({
   header: Object,
   data: Object,
@@ -40,10 +58,8 @@ defineProps({
                   type="text"
                   class="form-control"
                   autocomplete="off"
+                  v-model="searchTerm"
                 />
-                <span class="input-group-text">
-                  <kbd>ctrl + K</kbd>
-                </span>
               </div>
               <router-link class="btn btn-primary btn-0" to="/building/create"
                 >Add</router-link

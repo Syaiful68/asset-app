@@ -1,8 +1,25 @@
 <script setup>
+import { ref, watch } from "vue";
+import _ from "lodash";
+
+const searchTerm = ref("");
+const emit = defineEmits(["pages", "searchQuery"]);
 defineProps({
   header: Object,
   data: Object,
 });
+function pages(value) {
+  if (value !== null) {
+    emit("pages", value.slice(-1));
+  }
+}
+
+watch(
+  searchTerm,
+  _.debounce((value) => {
+    emit("searchQuery", value);
+  }, 1000)
+);
 </script>
 
 <template>
@@ -40,10 +57,8 @@ defineProps({
                   type="text"
                   class="form-control"
                   autocomplete="off"
+                  v-model="searchTerm"
                 />
-                <span class="input-group-text">
-                  <kbd>ctrl + K</kbd>
-                </span>
               </div>
               <router-link class="btn btn-primary btn-0" to="/asset/create"
                 >Add</router-link

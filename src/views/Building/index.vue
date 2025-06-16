@@ -35,6 +35,26 @@ const getBuilding = async () => {
     datas.value = res.data.building;
   });
 };
+const search = async (value) => {
+  await Api.get("/building?search=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.building;
+  });
+};
+const page = async (value) => {
+  await Api.get("/building?page=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.building;
+  });
+};
 
 onMounted(() => {
   getBuilding();
@@ -48,7 +68,12 @@ onMounted(() => {
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" />
+          <TableView
+            :header="tableHeader"
+            :data="datas"
+            @pages="page"
+            @searchQuery="search"
+          />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 import _ from "lodash";
 import { watch, ref } from "vue";
 
-const emit = defineEmits(["searchQuery"]);
+const emit = defineEmits(["searchQuery", "pages"]);
 const searchTerm = ref("");
 
 watch(
@@ -11,6 +11,11 @@ watch(
     emit("searchQuery", value);
   }, 1000)
 );
+function pages(value) {
+  if (value !== null) {
+    emit("pages", value.slice(-1));
+  }
+}
 
 defineProps({
   header: Object,
@@ -74,12 +79,12 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-for="(item, index) in data">
-                <td>{{ item.tags }}</td>
-                <td>{{ item.items }}</td>
+              <tr v-for="(item, index) in data.data" :key="index">
+                <td>{{ item.plat_number }}</td>
+                <td>{{ item.compeny.name }}</td>
+                <td>{{ item.type }}</td>
+                <td>{{ item.vehicles }}</td>
                 <td>{{ item.condition }}</td>
-                <td>{{ item.location }}</td>
-                <td>{{ item.status }}</td>
                 <td>
                   <router-link :to="'/asset/' + item.tags + '/detail'"
                     >Edit</router-link
@@ -91,14 +96,20 @@ defineProps({
         </div>
         <div class="card-footer d-flex align-items-center">
           <ul class="pagination m-0 ms-auto">
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
+            <li
+              v-if="data.total !== 0"
+              class="page-item"
+              v-for="(item, index) in data.links"
+              :key="index"
+            >
+              <button
+                @click="pages(item.url)"
+                type="button"
+                class="page-link"
+                :class="{ active: item.active }"
+                :href="item.url"
+                v-html="item.label"
+              ></button>
             </li>
           </ul>
         </div>

@@ -68,7 +68,6 @@ defineProps({
           </div>
         </div>
       </div>
-      {{ data.total }}
       <div id="advanced-table">
         <div class="table-responsive">
           <table class="table table-vcenter table-selectable">
