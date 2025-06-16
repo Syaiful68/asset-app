@@ -1,4 +1,18 @@
 <script setup>
+import formatDate from "dayjs";
+import { watch, ref } from "vue";
+import _ from "lodash";
+const emit = defineEmits(["searchQuery"]);
+
+const searchTerm = ref(null);
+
+watch(
+  searchTerm,
+  _.debounce((value) => {
+    emit("searchQuery", value);
+  }, 1000)
+);
+
 defineProps({
   header: Object,
   data: Object,
@@ -40,10 +54,8 @@ defineProps({
                   type="text"
                   class="form-control"
                   autocomplete="off"
+                  v-model="searchTerm"
                 />
-                <span class="input-group-text">
-                  <kbd>ctrl + K</kbd>
-                </span>
               </div>
               <button
                 type="button"
@@ -56,6 +68,7 @@ defineProps({
           </div>
         </div>
       </div>
+      {{ data.total }}
       <div id="advanced-table">
         <div class="table-responsive">
           <table class="table table-vcenter table-selectable">
@@ -67,11 +80,16 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
+              <tr v-if="data.total === 0">
+                <td class="text-center" colspan="5">Data not found</td>
+              </tr>
               <tr v-for="(item, index) in data.data" :key="index">
                 <td>{{ item.name }}</td>
                 <td>{{ item.owner_name }}</td>
                 <td>{{ item.contact }}</td>
-                <td>{{ item.created_at }}</td>
+                <td>
+                  {{ formatDate(item.created_at).format("MMM DD, YYYY") }}
+                </td>
                 <td>
                   <router-link :to="'/vendor/' + item.id + '/detail'"
                     >Edit</router-link
@@ -89,12 +107,12 @@ defineProps({
               v-for="(item, index) in data.links"
               :key="index"
             >
-              <router-link
+              <a
                 class="page-link"
                 :class="{ active: item.active }"
                 :href="item.url"
                 v-html="item.label"
-              ></router-link>
+              ></a>
             </li>
           </ul>
         </div>

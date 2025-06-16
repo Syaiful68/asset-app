@@ -77,9 +77,7 @@ defineProps({
                 <td>{{ item.asset.asset_name }}</td>
                 <td>{{ item.location }}</td>
                 <td>
-                  {{
-                    formatDate(item.created_at.format).format("MMM DD, YYYY")
-                  }}
+                  {{ formatDate(item.created_at).format("MMM DD, YYYY") }}
                 </td>
                 <td>{{ item.status }}</td>
                 <td>

@@ -41,6 +41,17 @@ const getCompeny = async () => {
   });
 };
 
+const search = async (value) => {
+  await Api.get("/compeny?search=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.compeny;
+  });
+};
+
 // access
 onMounted(() => {
   getCompeny();
@@ -54,7 +65,12 @@ onMounted(() => {
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" @open="toggleModal" />
+          <TableView
+            :header="tableHeader"
+            :data="datas"
+            @open="toggleModal"
+            @searchQuery="search"
+          />
         </div>
       </div>
     </div>

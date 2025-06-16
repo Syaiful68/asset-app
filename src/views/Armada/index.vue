@@ -1,6 +1,8 @@
 <script setup>
 import TableView from "./partials/tableView.vue";
 import AppBar from "../Layout/Appbar.vue";
+import Api from "@/utils/Api";
+import { onMounted } from "vue";
 
 const headers = [
   {
@@ -19,15 +21,40 @@ const tableHeader = [
   { name: "", label: "" },
 ];
 
-const datas = [
-  {
-    tags: "BK 9081 MMA",
-    items: "CV. Aufa",
-    condition: "Truck",
-    location: "Fuso",
-    status: "Onroad",
-  },
-];
+const datas = [];
+
+const getArmada = async () => {
+  await Api.get("/armada", {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((res) => {
+      console.log(res);
+      datas.value = res.data.armada;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+const search = async (value) => {
+  await Api.get("/armada?search=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((res) => {
+      console.log(res);
+      datas.value = res.data.armada;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+onMounted(() => {
+  getArmada();
+});
 </script>
 
 <template>
@@ -37,7 +64,11 @@ const datas = [
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" />
+          <TableView
+            :header="tableHeader"
+            :data="datas"
+            @searchQuery="search"
+          />
         </div>
       </div>
     </div>

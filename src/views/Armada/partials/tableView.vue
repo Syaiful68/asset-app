@@ -1,4 +1,17 @@
 <script setup>
+import _ from "lodash";
+import { watch, ref } from "vue";
+
+const emit = defineEmits(["searchQuery"]);
+const searchTerm = ref("");
+
+watch(
+  searchTerm,
+  _.debounce((value) => {
+    emit("searchQuery", value);
+  }, 1000)
+);
+
 defineProps({
   header: Object,
   data: Object,
@@ -40,10 +53,8 @@ defineProps({
                   type="text"
                   class="form-control"
                   autocomplete="off"
+                  v-model="searchTerm"
                 />
-                <span class="input-group-text">
-                  <kbd>ctrl + K</kbd>
-                </span>
               </div>
               <router-link to="/armada/create" class="btn btn-primary"
                 >Add</router-link
