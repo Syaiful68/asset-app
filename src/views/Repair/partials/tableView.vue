@@ -1,10 +1,17 @@
 <script setup>
 import formatDate from "dayjs";
+import { ref } from "vue";
+
+const emit = defineEmits(["pages"]);
 
 defineProps({
   header: Object,
   data: Object,
 });
+
+function pages(value) {
+  emit("pages", value.slice(-1));
+}
 </script>
 
 <template>
@@ -97,12 +104,14 @@ defineProps({
               v-for="(item, index) in data.links"
               :key="index"
             >
-              <a
+              <button
+                @click="pages(item.url)"
+                type="button"
                 class="page-link"
                 :class="{ active: item.active }"
                 :href="item.url"
                 v-html="item.label"
-              ></a>
+              ></button>
             </li>
           </ul>
         </div>

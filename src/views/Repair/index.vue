@@ -51,6 +51,17 @@ const getRepair = async () => {
     });
 };
 
+const page = async (value) => {
+  await Api.get("/repair?page=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.data;
+  });
+};
+
 // access
 
 onMounted(() => {
@@ -65,7 +76,12 @@ onMounted(() => {
     <div class="container-xl">
       <div class="row row-deck row-cards">
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" @open="toggleModal" />
+          <TableView
+            :header="tableHeader"
+            :data="datas"
+            @open="toggleModal"
+            @pages="page"
+          />
         </div>
       </div>
     </div>
