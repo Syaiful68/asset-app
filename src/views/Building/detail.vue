@@ -74,7 +74,7 @@ const getBuilding = async () => {
 };
 
 const updateBuilding = async () => {
-  await Api.post("/building", formData, {
+  await Api.patch("/building", formData, {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
@@ -103,7 +103,7 @@ onMounted(() => {
   <!--  -->
   <div class="page-body">
     <div class="container-xl">
-      <form @submit.prevent="submitBuilding">
+      <form @submit.prevent="updateBuilding">
         <div class="row row-deck row-cards">
           <div class="col-6">
             <!--  -->
@@ -199,7 +199,6 @@ onMounted(() => {
                     class="form-control"
                     v-model="formData.contract"
                     :class="{ 'is-invalid': errs.contract }"
-                    disabled
                   />
                 </div>
                 <div class="mb-3">
@@ -209,7 +208,6 @@ onMounted(() => {
                     class="form-control"
                     v-model="formData.rent"
                     :class="{ 'is-invalid': errs.rent }"
-                    disabled
                   />
                 </div>
               </div>

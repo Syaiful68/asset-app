@@ -86,7 +86,7 @@ defineProps({
                 <td>{{ item.office.office_name }}</td>
                 <td>{{ item.owner_name }}</td>
                 <td>{{ item.type }}</td>
-                <td>{{ item.rent }}</td>
+                <td>{{ item.rent }} Year</td>
                 <td>{{ item.contract_date }}</td>
                 <td>
                   <router-link :to="'/building/' + item.id + '/detail'"

@@ -2,7 +2,7 @@
 //
 import { onMounted, reactive, ref } from "vue";
 import AppBar from "../Layout/Appbar.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Api from "@/utils/Api";
 const headers = [
   {
@@ -16,16 +16,26 @@ const headers = [
 ];
 
 const errs = ref([]);
-
+const route = useRoute();
+const router = useRouter();
 const formData = reactive({
   repair: "",
   asset: "",
   tags: "",
   description: null,
   location: null,
-  status: null,
+  status: "",
+  handle: null,
+  user_handle: null,
 });
-const route = useRoute();
+
+const statusRepair = [
+  { label: "Repair", name: "repair" },
+  { label: "Done", name: "done" },
+  { label: "Destroy", name: "destroy" },
+];
+
+const status = ref("");
 
 const updateRepair = async () => {
   await Api.patch("/repair/" + route.params.id, formData, {
@@ -34,8 +44,13 @@ const updateRepair = async () => {
     },
   }).then((res) => {
     console.log(res);
+    router.push({ path: "/repair" });
   });
 };
+
+function backRepair() {
+  router.push({ path: "/repair" });
+}
 
 const getData = async () => {
   await Api.get("/repair/" + route.params.id, {
@@ -48,6 +63,9 @@ const getData = async () => {
     formData.asset = res.data.repair.asset.asset_name;
     formData.tags = res.data.repair.asset.asset_code;
     formData.description = res.data.repair.description;
+    formData.handle = res.data.repair.handle;
+    formData.status = res.data.repair.status;
+    status.status = res.data.repair.status;
   });
 };
 onMounted(() => {
@@ -115,28 +133,36 @@ onMounted(() => {
               <div class="card-body">
                 <div class="modal-body">
                   <div class="mb-3">
-                    <label class="form-label">Asset</label>
+                    <label class="form-label">Handle Repair</label>
                     <input
                       type="text"
-                      v-model="formData.asset"
+                      v-model="formData.handle"
                       class="form-control"
-                      :class="{ 'is-invalid': errs.asset }"
+                      :class="{ 'is-invalid': errs.handle }"
                     />
                   </div>
                   <div class="mb-3">
-                    <label for="" class="form-label">Description</label>
-                    <input
-                      type="text"
-                      v-model="formData.description"
+                    <label for="" class="form-label">Status</label>
+                    <select
+                      v-model="formData.status"
                       class="form-control"
-                      :class="{ 'is-invalid': errs.description }"
-                    />
+                      :class="{ 'is-invalid': errs.status }"
+                    >
+                      <option value="">Choise</option>
+                      <option
+                        v-for="(item, index) in statusRepair"
+                        :key="index"
+                        :value="item.name"
+                      >
+                        {{ item.label }}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button
                     type="button"
-                    @click="$emit('close')"
+                    @click="backRepair"
                     class="btn me-auto"
                     data-bs-dismiss="modal"
                   >

@@ -1,7 +1,7 @@
 <script setup>
 import AppBar from "../Layout/Appbar.vue";
 import Api from "@/utils/Api.js";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref, reactive } from "vue";
 
 // declare
@@ -17,6 +17,7 @@ const headers = [
 ];
 
 const route = useRoute();
+const router = useRouter();
 const errs = ref([]);
 const office = ref([]);
 const repairData = ref([]);
@@ -60,7 +61,8 @@ const getAsset = async () => {
       formData.pic = res.data.asset.pic;
       formData.brend = res.data.asset.brend;
       formData.model = res.data.asset.model;
-      formData.office = res.data.asset.location;
+      formData.location = res.data.asset.office_id;
+      formData.description = res.data.asset.description;
       //
       office.value = res.data.office;
       repairData.value = res.data.repair;
@@ -71,6 +73,10 @@ const getAsset = async () => {
       }
     });
 };
+
+function backAsset() {
+  return router.push({ path: "/asset" });
+}
 
 // access
 onMounted(() => {
@@ -96,6 +102,7 @@ onMounted(() => {
                     class="form-control"
                     :class="{ 'is-invalid': errs.sn }"
                     v-model="formData.sn"
+                    disabled
                   />
                 </div>
                 <div class="mb-3">
@@ -105,6 +112,7 @@ onMounted(() => {
                     class="form-control"
                     :class="{ 'is-invalid': errs.item }"
                     v-model="formData.item"
+                    disabled
                   />
                 </div>
                 <div class="mb-3">
@@ -114,6 +122,7 @@ onMounted(() => {
                     class="form-control"
                     :class="{ 'is-invalid': errs.brend }"
                     v-model="formData.brend"
+                    disabled
                   />
                 </div>
                 <div class="mb-3">
@@ -123,6 +132,7 @@ onMounted(() => {
                     class="form-control"
                     :class="{ 'is-invalid': errs.model }"
                     v-model="formData.model"
+                    disabled
                   />
                 </div>
                 <div class="mb-3">
@@ -131,6 +141,7 @@ onMounted(() => {
                     class="form-control"
                     :class="{ 'is-invalid': errs.type }"
                     v-model="formData.type"
+                    disabled
                   >
                     <option value="">Choise</option>
                     <option
@@ -160,8 +171,8 @@ onMounted(() => {
                   <label class="form-label">Office</label>
                   <select
                     class="form-control"
-                    :class="{ 'is-invalid': errs.office }"
-                    v-model="formData.office"
+                    :class="{ 'is-invalid': errs.location }"
+                    v-model="formData.location"
                   >
                     <option value="">Choise</option>
                     <option
@@ -197,14 +208,18 @@ onMounted(() => {
                     class="form-control"
                     :class="{ 'is-invalid': errs.description }"
                     v-model="formData.description"
+                    disabled
                   />
                 </div>
               </div>
               <div class="card-footer">
-                <div class="flex justify-content-end">
-                  <button type="submit" class="btn btn-primary ms-auto">
-                    Submit
+                <div class="d-flex">
+                  <button type="button" @click="backAsset" class="btn me-auto">
+                    Close
                   </button>
+                  <div class="justify-content-end">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
                 </div>
               </div>
             </div>

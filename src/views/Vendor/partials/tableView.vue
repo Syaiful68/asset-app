@@ -83,7 +83,7 @@ defineProps({
                 <td class="text-center" colspan="5">Data not found</td>
               </tr>
               <tr v-for="(item, index) in data.data" :key="index">
-                <td>{{ item.compenies_name }}</td>
+                <td>{{ item.compeny_name }}</td>
                 <td>{{ item.owner_name }}</td>
                 <td>{{ item.contact }}</td>
                 <td>

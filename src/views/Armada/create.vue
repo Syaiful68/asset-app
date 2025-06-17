@@ -13,9 +13,9 @@ const headers = [
   },
 ];
 const typeCar = [
-  { name: "Car", id: 1 },
-  { name: "Truck", id: 2 },
-  { name: "Van", id: 3 },
+  { label: "Car", name: "car" },
+  { label: "Truck", name: "truck" },
+  { label: "Van", name: "van" },
 ];
 const Fuels = [
   { name: "Pertalite", id: 1 },
@@ -109,7 +109,7 @@ onMounted(() => {
                       :value="item.id"
                       :key="index"
                     >
-                      {{ item.compenies_name }}
+                      {{ item.compeny_name }}
                     </option>
                   </select>
                 </div>
@@ -180,8 +180,8 @@ onMounted(() => {
                     v-model="formData.type"
                   >
                     <option value="">Choise</option>
-                    <option v-for="(item, index) in typeCar" :value="item.id">
-                      {{ item.name }}
+                    <option v-for="(item, index) in typeCar" :value="item.name">
+                      {{ item.label }}
                     </option>
                   </select>
                 </div>
