@@ -1,4 +1,5 @@
 <script setup>
+import TableView from "./partials/tableView.vue";
 import AppBar from "../Layout/Appbar.vue";
 import Api from "@/utils/Api";
 import { onMounted, ref } from "vue";
@@ -14,15 +15,30 @@ const headers = [
   },
 ];
 const tableHeader = [
-  { name: "Office", label: "office" },
-  { name: "Owner Name", label: "owner name" },
-  { name: "Type", label: "type" },
-  { name: "Rent", label: "rent" },
-  { name: "Contract Date", label: "contract date" },
-  { name: "", label: "" },
+  { name: "Code Repair", label: "Code Repair" },
+  { name: "Item", label: "Item" },
+  { name: "Location", label: "Location" },
+  { name: "Do date", label: "Do date" },
+  { name: "User", label: "User" },
+  { name: "Status", label: "Status" },
 ];
 
+const titleTable = ref("Repair Report");
 const datas = ref([]);
+const from = ref("");
+const to = ref("");
+
+// method
+const getData = () => {
+  Api.get("export/repair?from=" + from.value + "&to=" + to.value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res.data.data);
+    datas.value = res.data.data;
+  });
+};
 </script>
 
 <template>
@@ -31,7 +47,37 @@ const datas = ref([]);
   <div class="page-body">
     <div class="container-xl">
       <div class="row row-deck row-cards">
-        <div class="col-12"></div>
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col">
+                      <label for="" class="form-label">From date</label>
+                      <input type="date" v-model="from" class="form-control" />
+                    </div>
+                    <div class="col">
+                      <label for="" class="form-label">To date</label>
+                      <input type="date" v-model="to" class="form-control" />
+                    </div>
+                  </div>
+                  <br />
+                  <button
+                    type="submit"
+                    @click="getData()"
+                    class="btn btn-success"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <TableView :header="tableHeader" :data="datas" :titles="titleTable" />
+        </div>
       </div>
     </div>
   </div>

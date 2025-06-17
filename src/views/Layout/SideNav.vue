@@ -12,7 +12,7 @@ const Menus = [
     icon: "fa-clipboard-list",
     children: [
       { label: "Report Repair", path: "/report/repair" },
-      { label: "Report Asset", path: "/report/Asset" },
+      { label: "Report Asset", path: "/report/asset" },
     ],
   },
 ];

@@ -16,17 +16,29 @@ const headers = [
 ];
 
 const tableHeader = [
-  { name: "Office", label: "office" },
-  { name: "Owner Name", label: "owner name" },
-  { name: "Type", label: "type" },
-  { name: "Rent", label: "rent" },
-  { name: "Contract Date", label: "contract date" },
-  { name: "", label: "" },
+  { name: "Tags", label: "tags" },
+  { name: "Item", label: "item" },
+  { name: "Location", label: "location" },
+  { name: "Condition", label: "condition" },
+  { name: "Do Date", label: "created" },
 ];
 
-const titleTable = "Asset Report";
-
+const titleTable = ref("Asset Report");
 const datas = ref([]);
+const from = ref("");
+const to = ref("");
+
+// method
+const getData = () => {
+  Api.get("export/asset?from=" + from.value + "&to=" + to.value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res.data.data);
+    datas.value = res.data.data;
+  });
+};
 </script>
 
 <template>
@@ -35,9 +47,36 @@ const datas = ref([]);
   <div class="page-body">
     <div class="container-xl">
       <div class="row row-deck row-cards">
-        <div class="col-12"></div>
         <div class="col-12">
-          <TableView :header="tableHeader" :data="datas" :title="titleTable" />
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col">
+                      <label for="" class="form-label">From date</label>
+                      <input type="date" v-model="from" class="form-control" />
+                    </div>
+                    <div class="col">
+                      <label for="" class="form-label">To date</label>
+                      <input type="date" v-model="to" class="form-control" />
+                    </div>
+                  </div>
+                  <br/>
+                  <button
+                        type="submit"
+                        @click="getData()"
+                        class="btn btn-success"
+                      >
+                        Submit
+                      </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <TableView :header="tableHeader" :data="datas" :titles="titleTable" />
         </div>
       </div>
     </div>
