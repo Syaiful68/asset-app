@@ -90,12 +90,24 @@ function pages(value) {
               </tr>
               <tr v-else v-for="(item, index) in data.data">
                 <td>{{ item.repair_code }}</td>
+                <td>{{ item.asset.asset_code }}</td>
                 <td>{{ item.asset.asset_name }}</td>
-                <td>{{ item.location }}</td>
                 <td>
                   {{ formatDate(item.created_at).format("MMM DD, YYYY") }}
                 </td>
-                <td>{{ item.status }}</td>
+                <td>
+                  <span
+                    class="badge bg-yellow-lt"
+                    v-if="item.status === 'repair'"
+                    >Repair</span
+                  >
+                  <span class="badge bg-green-lt" v-if="item.status === 'done'"
+                    >Done</span
+                  >
+                  <span class="badge bg-red-lt" v-if="item.status === 'destroy'"
+                    >Destroy</span
+                  >
+                </td>
                 <td>
                   <router-link :to="'/repair/' + item.repair_code + '/detail'"
                     >Edit</router-link

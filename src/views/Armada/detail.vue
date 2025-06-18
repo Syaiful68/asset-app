@@ -18,6 +18,11 @@ const typeCar = [
   { label: "Truck", name: "truck" },
   { label: "Van", name: "van" },
 ];
+const statusCar = [
+  { label: "Used", name: "used" },
+  { label: "Repair", name: "repair" },
+  { label: "Replacement", name: "replacement" },
+];
 const Fuels = [
   { name: "Pertalite", id: 1 },
   { name: "Bio Solar", id: 2 },
@@ -40,6 +45,7 @@ const formData = reactive({
   contract: null,
   vehicle: null,
   location: "",
+  status: "",
   description: "",
 });
 
@@ -58,6 +64,7 @@ const getArmada = async () => {
     formData.fuel = res.data.armada.fuels;
     formData.rent = res.data.armada.rent;
     formData.type = res.data.armada.type;
+    formData.status = res.data.armada.condition;
     formData.contract = dayjs(res.data.armada.contract_date).format(
       "YYYY-MM-DD"
     );
@@ -83,6 +90,10 @@ const updateArmada = async () => {
       }
     });
 };
+
+function armadaBack() {
+  return router.push({ path: "/armada" });
+}
 
 // access
 onMounted(() => {
@@ -216,10 +227,32 @@ onMounted(() => {
                     v-model="formData.description"
                   />
                 </div>
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select
+                    class="form-control"
+                    :class="{ 'is-invalid': errs.status }"
+                    v-model="formData.status"
+                  >
+                    <option value="">Choise</option>
+                    <option
+                      v-for="(item, index) in statusCar"
+                      :value="item.name"
+                    >
+                      {{ item.label }}
+                    </option>
+                  </select>
+                </div>
               </div>
               <div class="card-footer">
                 <div class="d-flex">
-                  <button type="button" class="btn btn-secondary">Back</button>
+                  <button
+                    type="button"
+                    @click="armadaBack"
+                    class="btn btn-secondary me-auto"
+                  >
+                    Back
+                  </button>
                   <div class="justify-content-end">
                     <button type="submit" class="btn btn-success">
                       Submit

@@ -16,8 +16,8 @@ const headers = [
 
 const tableHeader = [
   { name: "Code Repair", label: "plat" },
+  { name: "Tags", label: "plat" },
   { name: "Item", label: "plat" },
-  { name: "Location", label: "plat" },
   { name: "Do date", label: "plat" },
   { name: "User", label: "plat" },
   { name: "", label: "" },

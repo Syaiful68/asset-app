@@ -87,7 +87,23 @@ defineProps({
                 <td>{{ item.compeny.compeny_name }}</td>
                 <td>{{ item.type }}</td>
                 <td>{{ item.vehicles }}</td>
-                <td>{{ item.condition }}</td>
+                <td>
+                  <span
+                    class="badge badge-outline text-yellow"
+                    v-if="item.condition === 'repair'"
+                    >Repair</span
+                  >
+                  <span
+                    class="badge badge-outline text-green"
+                    v-if="item.condition === 'used'"
+                    >Used</span
+                  >
+                  <span
+                    class="badge badge-outline text-green"
+                    v-if="item.condition === 'replacement'"
+                    >Replacement</span
+                  >
+                </td>
                 <td>
                   <router-link :to="'/armada/' + item.slugs + '/detail'"
                     >Edit</router-link

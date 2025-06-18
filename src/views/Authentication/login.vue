@@ -1,4 +1,6 @@
 <script setup>
+import Api from "@/utils/Api.js";
+import { useRouter } from "vue-router";
 import { ref, reactive } from "vue";
 const showPass = ref(false);
 
@@ -11,13 +13,12 @@ const formData = reactive({
   password: null,
 });
 
+const router = useRouter();
 const submitLogin = () => {
-  Api.post("/signin", formData, {
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-  }).then((res) => {
-    router.push({ path: "/armada" });
+  Api.post("/signin", formData).then((res) => {
+    console.log(res);
+    localStorage.setItem("token", res.data.token);
+    router.push({ path: "/asset" });
   });
 };
 </script>
@@ -30,7 +31,7 @@ const submitLogin = () => {
           <div class="card card-md">
             <div class="card-body">
               <h2 class="h2 text-center mb-4">Login to your account</h2>
-              <form action="./" method="get" autocomplete="off" novalidate>
+              <form @submit.prevent="submitLogin">
                 <div class="mb-3">
                   <label class="form-label">User</label>
                   <input

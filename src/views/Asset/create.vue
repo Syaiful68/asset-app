@@ -62,6 +62,10 @@ const SubmitAsset = async () => {
     });
 };
 
+function backAsset(){
+  return router.push({path:'/asset'})
+}
+
 // access
 onMounted(() => {
   getLocation();
@@ -175,10 +179,13 @@ onMounted(() => {
                 </div>
               </div>
               <div class="card-footer">
-                <div class="flex justify-content-end">
-                  <button type="submit" class="btn btn-primary ms-auto">
-                    Submit
-                  </button>
+                <div class="d-flex">
+                  <button type="button" @click="backAsset" class="btn btn-secondary me-auto">Back</button>
+                  <div class="justify-content-end">
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

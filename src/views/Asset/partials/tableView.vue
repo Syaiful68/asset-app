@@ -85,7 +85,24 @@ watch(
                 <td>{{ item.asset_code }}</td>
                 <td>{{ item.asset_name }}</td>
                 <td>{{ item.office.office_name }}</td>
-                <td>{{ item.condition }}</td>
+                <td>
+                  <span
+                    class="badge badge-outline text-green"
+                    v-if="item.condition === 'good'"
+                    >Good</span
+                  >
+                  <span
+                    class="badge badge-outline text-green"
+                    v-if="item.condition === 'repair'"
+                    >Repair</span
+                  >
+                  <span
+                    class="badge badge-outline text-red"
+                    v-if="item.condition === 'destroy'"
+                    >Destroy</span
+                  >
+                </td>
+
                 <td>
                   <router-link :to="'/asset/' + item.asset_code + '/detail'"
                     >Edit</router-link

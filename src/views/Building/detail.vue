@@ -92,6 +92,10 @@ const updateBuilding = async () => {
     });
 };
 
+function backBuilding(){
+  return router.push({path:"/building"})
+}
+
 onMounted(() => {
   getOffice();
   getBuilding();
@@ -212,8 +216,11 @@ onMounted(() => {
                 </div>
               </div>
               <div class="card-footer">
-                <div class="d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="d-flex">
+                  <button type="button" @click="backBuilding" class="btn btn-secondary me-auto">Back</button>
+                  <div class="justify-content-end">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
                 </div>
               </div>
             </div>

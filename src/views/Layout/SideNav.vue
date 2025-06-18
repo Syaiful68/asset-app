@@ -1,5 +1,7 @@
 <script setup>
+import { onMounted } from "vue";
 import ListMenu from "./Menu/menuList.vue";
+import { useAuthStore } from "@/stores/authStore.js";
 const Menus = [
   { label: "Asset", path: "/asset", icon: "fa-computer" },
   { label: "Repair", path: "/repair", icon: "fa-wrench" },
@@ -16,6 +18,12 @@ const Menus = [
     ],
   },
 ];
+
+const authRole = useAuthStore();
+
+onMounted(() => {
+  authRole.userAuth();
+});
 </script>
 
 <template>
