@@ -30,7 +30,7 @@ const getArmada = async () => {
     },
   })
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       datas.value = res.data.armada;
     })
     .catch((error) => {
@@ -51,6 +51,16 @@ const search = async (value) => {
       console.log(error);
     });
 };
+const pageArmada = async (value) => {
+  await Api.get("/repair?page=" + value, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    datas.value = res.data.data;
+  });
+};
 
 onMounted(() => {
   getArmada();
@@ -67,6 +77,8 @@ onMounted(() => {
           <TableView
             :header="tableHeader"
             :data="datas"
+            :paginate="datas.links"
+            @pages="pageArmada"
             @searchQuery="search"
           />
         </div>

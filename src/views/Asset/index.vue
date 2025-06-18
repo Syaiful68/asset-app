@@ -81,9 +81,7 @@ onMounted(() => {
       <div class="row row-deck row-cards">
         <div class="col-12">
           <div class="row row-cards">
-            <cardList
-            :datas="currencyAsset"
-            ></cardList>
+            <cardList :datas="currencyAsset"></cardList>
           </div>
         </div>
         <div class="col-12">

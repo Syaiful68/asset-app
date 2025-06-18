@@ -79,7 +79,7 @@ defineProps({
               </tr>
             </thead>
             <tbody class="table-tbody">
-              <tr v-if="data.total === 0">
+              <tr v-if="data === 0">
                 <td colspan="6" class="text-center">Data not found</td>
               </tr>
               <tr v-for="(item, index) in data.data" :key="index">
@@ -116,7 +116,6 @@ defineProps({
         <div class="card-footer d-flex align-items-center">
           <ul class="pagination m-0 ms-auto">
             <li
-              v-if="data.total !== 0"
               class="page-item"
               v-for="(item, index) in data.links"
               :key="index"
