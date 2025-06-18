@@ -116,6 +116,7 @@ defineProps({
         <div class="card-footer d-flex align-items-center">
           <ul class="pagination m-0 ms-auto">
             <li
+              v-if="data.total !== 0"
               class="page-item"
               v-for="(item, index) in data.links"
               :key="index"

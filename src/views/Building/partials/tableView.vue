@@ -1,6 +1,7 @@
 <script setup>
 import _ from "lodash";
 import { watch, ref } from "vue";
+import dayjs from "dayjs";
 
 const emit = defineEmits(["searchQuery", "pages"]);
 const searchTerm = ref("");
@@ -87,7 +88,9 @@ defineProps({
                 <td>{{ item.owner_name }}</td>
                 <td>{{ item.type }}</td>
                 <td>{{ item.rent }} Year</td>
-                <td>{{ item.contract_date }}</td>
+                <td>
+                  {{ dayjs(item.contract_date).format("MMM DD, YYYY") }}
+                </td>
                 <td>
                   <router-link :to="'/building/' + item.id + '/detail'"
                     >Edit</router-link

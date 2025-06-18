@@ -34,6 +34,9 @@ const getArmada = async () => {
       datas.value = res.data.armada;
     })
     .catch((error) => {
+      if (error.status === 401) {
+        localStorage.removeItem("token");
+      }
       console.log(error);
     });
 };
@@ -77,7 +80,6 @@ onMounted(() => {
           <TableView
             :header="tableHeader"
             :data="datas"
-            :paginate="datas.links"
             @pages="pageArmada"
             @searchQuery="search"
           />

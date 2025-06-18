@@ -35,10 +35,17 @@ const getCompeny = async () => {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
-  }).then((res) => {
-    console.log(res);
-    datas.value = res.data.compeny;
-  });
+  })
+    .then((res) => {
+      console.log(res);
+      datas.value = res.data.compeny;
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        localStorage.removeItem("token");
+      }
+      console.log(error);
+    });
 };
 
 const search = async (value) => {

@@ -17,12 +17,6 @@ const typeCar = [
   { label: "Truck", name: "truck" },
   { label: "Van", name: "van" },
 ];
-const Fuels = [
-  { name: "Pertalite", id: 1 },
-  { name: "Bio Solar", id: 2 },
-  { name: "Petamax", id: 3 },
-  { name: "Dexlite", id: 4 },
-];
 
 // delare
 const errs = ref([]);
@@ -32,7 +26,6 @@ const origins = ref([]);
 const formData = reactive({
   compeny: "",
   plat: null,
-  fuel: "",
   rent: null,
   type: "",
   contract: null,
@@ -185,20 +178,6 @@ onMounted(() => {
                     </option>
                   </select>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Fuels</label>
-                  <select
-                    class="form-control"
-                    :class="{ 'is-invalid': errs.fuel }"
-                    v-model="formData.fuel"
-                  >
-                    <option value="">Choise</option>
-                    <option v-for="(item, index) in Fuels" :value="item.id">
-                      {{ item.name }}
-                    </option>
-                  </select>
-                </div>
-
                 <div class="mb-3">
                   <label class="form-label">Description</label>
                   <input

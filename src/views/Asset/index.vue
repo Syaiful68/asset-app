@@ -36,14 +36,21 @@ const getAsset = async () => {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
-  }).then((res) => {
-    console.log(res);
-    datas.value = res.data.asset;
-    currencyAsset.total = res.data.total;
-    currencyAsset.furnitur = res.data.furnitur;
-    currencyAsset.elektronik = res.data.elektronik;
-    currencyAsset.machine = res.data.machine;
-  });
+  })
+    .then((res) => {
+      console.log(res);
+      datas.value = res.data.asset;
+      currencyAsset.total = res.data.total;
+      currencyAsset.furnitur = res.data.furnitur;
+      currencyAsset.elektronik = res.data.elektronik;
+      currencyAsset.machine = res.data.machine;
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        localStorage.removeItem("token");
+      }
+      console.log(error);
+    });
 };
 const page = async (value) => {
   await Api.get("/asset?page=" + value, {

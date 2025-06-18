@@ -40,10 +40,17 @@ const search = async (value) => {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
-  }).then((res) => {
-    console.log(res);
-    datas.value = res.data.building;
-  });
+  })
+    .then((res) => {
+      console.log(res);
+      datas.value = res.data.building;
+    })
+    .catch((error) => {
+      if (error.status === 401) {
+        localStorage.removeItem("token");
+      }
+      console.log(error);
+    });
 };
 const page = async (value) => {
   await Api.get("/building?page=" + value, {
