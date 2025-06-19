@@ -142,12 +142,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthentication = useAuthStore();
-
+  isAuthentication.initializaAuth();
   if (to.name !== "login" && localStorage.getItem("token") === null) {
-    next({ name: "login" });
+    next({ path: "/login" });
   }
   if (to.name === "login" && localStorage.getItem("token") !== null) {
-    next({ name: "asset" });
+    next({ path: "/asset" });
   }
   next();
 });
