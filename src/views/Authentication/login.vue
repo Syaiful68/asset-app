@@ -1,7 +1,7 @@
 <script setup>
-import Api from "@/utils/Api.js";
 import { useRouter } from "vue-router";
 import { ref, reactive } from "vue";
+import { useAuthStore } from "@/stores/authStore";
 const showPass = ref(false);
 
 function toggleShow() {
@@ -13,13 +13,20 @@ const formData = reactive({
   password: null,
 });
 
+const useAuth = useAuthStore();
+
 const router = useRouter();
-const submitLogin = () => {
-  Api.post("/signin", formData).then((res) => {
-    console.log(res);
-    localStorage.setItem("token", res.data.token);
-    router.push({ path: "/asset" });
-  });
+
+const submitLogin = async () => {
+  await useAuth.userLogin(formData);
+  if (useAuth.isAuthenticated) {
+    router.push({ name: "asset" });
+  }
+  // Api.post("/signin", formData).then((res) => {
+  //   console.log(res);
+  //   localStorage.setItem("token", res.data.token);
+  //   router.push({ path: "/asset" });
+  // });
 };
 </script>
 

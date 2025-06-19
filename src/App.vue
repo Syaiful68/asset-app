@@ -1,5 +1,12 @@
 <script setup>
 import Sidebar from "./views/Layout/SideNav.vue";
+import { useAuthStore } from "./stores/authStore";
+import { onMounted } from "vue";
+
+const authen = useAuthStore();
+onMounted(() => {
+  authen.userAuth();
+});
 </script>
 
 <template>

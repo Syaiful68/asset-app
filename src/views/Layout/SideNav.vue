@@ -1,7 +1,25 @@
 <script setup>
-import { onMounted } from "vue";
+import Api from "@/utils/Api";
 import ListMenu from "./Menu/menuList.vue";
-import { useAuthStore } from "@/stores/authStore.js";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function btnLogout() {
+  Api.delete("/signout", {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  })
+    .then((res) => {
+      localStorage.removeItem("token");
+      router.push({ path: "/login" });
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
+
 const Menus = [
   { label: "Asset", path: "/asset", icon: "fa-computer" },
   { label: "Repair", path: "/repair", icon: "fa-wrench" },
@@ -18,12 +36,6 @@ const Menus = [
     ],
   },
 ];
-
-const authRole = useAuthStore();
-
-onMounted(() => {
-  authRole.userAuth();
-});
 </script>
 
 <template>
@@ -76,6 +88,17 @@ onMounted(() => {
             :icons="menu.icon"
             :data="menu.children"
           ></ListMenu>
+        </ul>
+        <ul style="list-style-type: none">
+          <li class="nav-item">
+            <button type="button" @click="btnLogout" class="nav-link">
+              <span class="nav-link-icon d-md-none d-lg-inline-block"
+                ><!-- Download SVG icon from http://tabler.io/icons/icon/home -->
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </span>
+              <span class="nav-link-title"> Logout </span>
+            </button>
+          </li>
         </ul>
         <!-- END NAVBAR MENU -->
       </div>
